@@ -22,7 +22,7 @@
 
 #include "qzcommon.h"
 
-class QWebView;
+class QWebEngineView;
 
 class QUPZILLA_EXPORT LoadRequest
 {
@@ -40,7 +40,7 @@ public:
     LoadRequest &operator=(const LoadRequest &other);
 
     bool isEmpty() const;
-    void load(QWebView* view) const;
+    void load(QWebEngineView* view) const;
 
     QUrl url() const;
     void setUrl(const QUrl &url);

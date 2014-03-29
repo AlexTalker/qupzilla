@@ -17,7 +17,7 @@
 * ============================================================ */
 #include "loadrequest.h"
 
-#include <QWebView>
+#include <QWebEngineView>
 
 LoadRequest::LoadRequest()
     : m_operation(GetOperation)
@@ -57,14 +57,18 @@ bool LoadRequest::isEmpty() const
     return m_request.url().isEmpty();
 }
 
-void LoadRequest::load(QWebView* view) const
+void LoadRequest::load(QWebEngineView* view) const
 {
+#if QTWEBENGINE_DISABLED
     if (m_operation == GetOperation) {
         view->load(m_request);
     }
     else {
         view->load(m_request, QNetworkAccessManager::PostOperation, m_data);
     }
+#else
+    view->load(m_request.url());
+#endif
 }
 
 QUrl LoadRequest::url() const
