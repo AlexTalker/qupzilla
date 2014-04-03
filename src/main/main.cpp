@@ -36,6 +36,8 @@
 #include "qwebkitversion.h"
 #endif
 
+#include <qtwebengineglobal.h>
+
 void qupzilla_signal_handler(int s)
 {
     if (s != SIGSEGV) {
@@ -177,6 +179,7 @@ int main(int argc, char* argv[])
     }
 
     MainApplication app(argc, argv);
+    QWebEngine::initialize();
 
     if (app.isClosing()) {
         return 0;
