@@ -190,20 +190,16 @@ void WebTab::setTabTitle(const QString &title)
 
 void WebTab::setHistoryData(const QByteArray &data)
 {
-#if QTWEBENGINE_DISABLED
     QDataStream historyStream(data);
     historyStream >> *m_webView->history();
-#endif
 }
 
 QByteArray WebTab::historyData() const
 {
     if (isRestored()) {
         QByteArray historyArray;
-#if QTWEBENGINE_DISABLED
         QDataStream historyStream(&historyArray, QIODevice::WriteOnly);
         historyStream << *m_webView->history();
-#endif
         return historyArray;
     }
     else {
