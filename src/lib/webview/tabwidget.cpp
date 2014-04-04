@@ -423,6 +423,7 @@ int TabWidget::addView(const LoadRequest &req, const QString &title, const Qz::N
         m_isClosingToLastTabIndex = true;
     }
 
+#if QTWEBENGINE_DISABLED
     if (openFlags & Qz::NT_NotSelectedTab) {
         WebTab* currentWebTab = weTab();
         // Workarounding invalid QWebEnginePage::viewportSize() until QWebEngineView is shown
@@ -433,6 +434,7 @@ int TabWidget::addView(const LoadRequest &req, const QString &title, const Qz::N
             webTab->webView()->page()->setViewportSize(currentView->page()->viewportSize());
         }
     }
+#endif
 
     // Make sure user notice opening new background tabs
     if (!(openFlags & Qz::NT_SelectedTab)) {

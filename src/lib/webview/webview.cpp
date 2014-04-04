@@ -1529,7 +1529,9 @@ void WebView::keyReleaseEvent(QKeyEvent* event)
 void WebView::resizeEvent(QResizeEvent* event)
 {
     QWebEngineView::resizeEvent(event);
+#if QTWEBENGINE_DISABLED
     emit viewportResized(page()->viewportSize());
+#endif
 }
 
 ///

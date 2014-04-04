@@ -179,6 +179,7 @@ int main(int argc, char* argv[])
     }
 
     MainApplication app(argc, argv);
+
     QWebEngine::initialize();
 
     if (app.isClosing()) {
