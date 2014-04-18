@@ -28,7 +28,6 @@ HTML5PermissionsManager::HTML5PermissionsManager(QObject* parent)
 }
 
 #if QTWEBENGINE_DISABLED
-#if QTWEBKIT_FROM_2_2
 void HTML5PermissionsManager::requestPermissions(WebPage* page, QWebEngineFrame* frame, const QWebEnginePage::Feature &feature)
 {
     if (!frame || !page) {
@@ -114,7 +113,6 @@ void HTML5PermissionsManager::rememberPermissions(const QString &host, const QWe
 
     saveSettings();
 }
-#endif
 #endif
 
 void HTML5PermissionsManager::loadSettings()

@@ -410,7 +410,9 @@ void WebView::back()
         history->back();
 
         emit urlChanged(url());
+#if QTWEBENGINE_DISABLED
         emit iconChanged();
+#endif
     }
 }
 
@@ -422,7 +424,9 @@ void WebView::forward()
         history->forward();
 
         emit urlChanged(url());
+#if QTWEBENGINE_DISABLED
         emit iconChanged();
+#endif
     }
 }
 
@@ -595,7 +599,9 @@ void WebView::downloadUrlToDisk()
 
 void WebView::copyImageToClipboard()
 {
+#if QTWEBENGINE_DISABLED
     triggerPageAction(QWebEnginePage::CopyImageToClipboard);
+#endif
 }
 
 void WebView::openActionUrl()
@@ -605,9 +611,9 @@ void WebView::openActionUrl()
     }
 }
 
+#if QTWEBENGINE_DISABLED
 void WebView::showSource(QWebEngineFrame* frame, const QString &selectedHtml)
 {
-#if QTWEBENGINE_DISABLED
     if (!frame) {
         frame = page()->mainFrame();
     }
@@ -615,8 +621,8 @@ void WebView::showSource(QWebEngineFrame* frame, const QString &selectedHtml)
     SourceViewer* source = new SourceViewer(frame, selectedHtml);
     QzTools::centerWidgetToParent(source, this);
     source->show();
-#endif
 }
+#endif
 
 void WebView::showSiteInfo()
 {
@@ -827,6 +833,7 @@ void WebView::showClickedFrameSource()
 #endif
 }
 
+#if QTWEBENGINE_DISABLED
 void WebView::printPage(QWebEngineFrame* frame)
 {
     QPrintPreviewDialog* dialog = new QPrintPreviewDialog(this);
@@ -836,14 +843,13 @@ void WebView::printPage(QWebEngineFrame* frame)
         connect(dialog, SIGNAL(paintRequested(QPrinter*)), this, SLOT(print(QPrinter*)));
     }
     else {
-#if QTWEBENGINE_DISABLED
         connect(dialog, SIGNAL(paintRequested(QPrinter*)), frame, SLOT(print(QPrinter*)));
-#endif
     }
 
     dialog->exec();
     dialog->deleteLater();
 }
+#endif
 
 QUrl WebView::lastUrl()
 {
@@ -1429,6 +1435,7 @@ void WebView::keyPressEvent(QKeyEvent* event)
         }
         break;
 
+#if QTWEBENGINE_DISABLED
     case Qt::Key_Up:
         if (event->modifiers() & Qt::ShiftModifier) {
             triggerPageAction(QWebEnginePage::SelectPreviousLine);
@@ -1509,6 +1516,7 @@ void WebView::keyPressEvent(QKeyEvent* event)
             return;
         }
         break;
+#endif
 
     default:
         break;

@@ -57,9 +57,9 @@ public:
     void setSSLCertificate(const QSslCertificate &cert);
     QSslCertificate sslCertificate();
 
-    bool javaScriptPrompt(QWebEngineFrame* originatingFrame, const QString &msg, const QString &defaultValue, QString* result);
-    bool javaScriptConfirm(QWebEngineFrame* originatingFrame, const QString &msg);
-    void javaScriptAlert(QWebEngineFrame* originatingFrame, const QString &msg);
+    bool javaScriptPrompt(QUrl securityOrigin, const QString &msg, const QString &defaultValue, QString* result);
+    bool javaScriptConfirm(QUrl securityOrigin, const QString &msg);
+    void javaScriptAlert(QUrl securityOrigin, const QString &msg);
 
     void setJavaScriptEnabled(bool enabled);
 
@@ -100,17 +100,20 @@ private slots:
     void addJavaScriptObject();
 
     void watchedFileChanged(const QString &file);
-    void printFrame(QWebEngineFrame* frame);
     void downloadRequested(const QNetworkRequest &request);
     void windowCloseRequested();
     void authentication(const QUrl &requestUrl, QAuthenticator* auth);
     void proxyAuthentication(const QUrl &requestUrl, QAuthenticator* auth, const QString &proxyHost);
 
+#if QTWEBENGINE_DISABLED
     void dbQuotaExceeded(QWebEngineFrame* frame);
+    void printFrame(QWebEngineFrame* frame);
 
 #ifdef USE_QTWEBKIT_2_2
     void appCacheQuotaExceeded(QWebSecurityOrigin* origin, quint64 originalQuota);
     void featurePermissionRequested(QWebEngineFrame* frame, const QWebEnginePage::Feature &feature);
+#endif
+
 #endif
 
 protected:
@@ -119,10 +122,12 @@ protected:
     QObject* createPlugin(const QString &classid, const QUrl &url, const QStringList &paramNames, const QStringList &paramValues);
 
 private:
+#if QTWEBENGINE_DISABLED
     bool supportsExtension(Extension extension) const;
     bool extension(Extension extension, const ExtensionOption* option, ExtensionReturn* output = 0);
     bool acceptNavigationRequest(QWebEngineFrame* frame, const QNetworkRequest &request, NavigationType type);
     QString chooseFile(QWebEngineFrame* originatingFrame, const QString &oldFile);
+#endif
 
     void handleUnknownProtocol(const QUrl &url);
     void desktopServicesOpen(const QUrl &url);
@@ -142,7 +147,6 @@ private:
     QVector<AdBlockedEntry> m_adBlockedEntries;
     QVector<PasswordEntry> m_passwordEntries;
 
-    QWebEnginePage::NavigationType m_lastRequestType;
     QUrl m_lastRequestUrl;
 
     int m_loadProgress;

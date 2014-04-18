@@ -81,7 +81,9 @@ void PopupWebView::closeView()
 
 void PopupWebView::inspectElement()
 {
+#if QTWEBENGINE_DISABLED
     triggerPageAction(QWebEnginePage::InspectElement);
+#endif
 }
 
 void PopupWebView::contextMenuEvent(QContextMenuEvent* event)

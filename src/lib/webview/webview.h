@@ -98,7 +98,9 @@ public slots:
     void back();
     void forward();
 
+#if QTWEBENGINE_DISABLED
     void printPage(QWebEngineFrame* frame = 0);
+#endif
     void sendPageByMail();
     void savePageAs();
 
@@ -122,7 +124,9 @@ protected slots:
     void downloadUrlToDisk();
     void copyImageToClipboard();
     void openActionUrl();
+#if QTWEBENGINE_DISABLED
     void showSource(QWebEngineFrame* frame = 0, const QString &selectedHtml = QString());
+#endif
     void showSiteInfo();
     void searchSelectedText();
     void searchSelectedTextInBackgroundTab();

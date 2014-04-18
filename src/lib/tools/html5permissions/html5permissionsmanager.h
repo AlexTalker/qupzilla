@@ -32,7 +32,7 @@ class QUPZILLA_EXPORT HTML5PermissionsManager : public QObject
 public:
     explicit HTML5PermissionsManager(QObject* parent);
 
-#if QTWEBKIT_FROM_2_2
+#if QTWEBENGINE_DISABLED
     void requestPermissions(WebPage* page, QWebEngineFrame* frame, const QWebEnginePage::Feature &feature);
     void rememberPermissions(const QString &host, const QWebEnginePage::Feature &feature,
                              const QWebEnginePage::PermissionPolicy &policy);

@@ -70,8 +70,10 @@ void TabbedWebView::setWebPage(WebPage* page)
 
 void TabbedWebView::inspectElement()
 {
+#if QTWEBENGINE_DISABLED
     m_window->showWebInspector(false);
     triggerPageAction(QWebEnginePage::InspectElement);
+#endif
 }
 
 WebTab* TabbedWebView::webTab() const

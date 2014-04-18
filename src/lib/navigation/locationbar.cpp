@@ -287,7 +287,6 @@ void LocationBar::setGoIconVisible(bool state)
 
 void LocationBar::setRssIconVisible(bool state)
 {
-
     updateTextMargins();
 }
 
